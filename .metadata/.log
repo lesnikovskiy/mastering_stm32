@@ -17,3 +17,12 @@ Command-line arguments:  -os macosx -ws cocoa -arch x86_64 -keyring /Users/rusla
 
 !ENTRY org.eclipse.cdt.core 1 0 2026-05-02 23:20:00.982
 !MESSAGE Indexed '001NucleoHelloWorld' (23 sources, 83 headers) in 5.93 sec: 5,747 declarations; 30,891 references; 0 unresolved inclusions; 1 syntax errors; 2 unresolved names (0.0055%)
+
+!ENTRY org.eclipse.cdt.core 1 0 2026-05-06 22:52:56.732
+!MESSAGE Indexed '001UARTExcercise' (23 sources, 83 headers) in 4.88 sec: 5,747 declarations; 30,891 references; 0 unresolved inclusions; 1 syntax errors; 2 unresolved names (0.0055%)
+
+!ENTRY org.eclipse.cdt.core 1 0 2026-05-06 22:56:01.367
+!MESSAGE Indexed '002UARTExcercise' (23 sources, 83 headers) in 1.1 sec: 5,747 declarations; 30,891 references; 0 unresolved inclusions; 1 syntax errors; 2 unresolved names (0.0055%)
+
+!ENTRY org.eclipse.cdt.core 1 0 2026-05-06 22:58:53.128
+!MESSAGE Indexed '002UARTExcercise' (23 sources, 117 headers) in 1.67 sec: 11,465 declarations; 51,597 references; 3 unresolved inclusions; 46 syntax errors; 171 unresolved names (0.27%)
