@@ -1,5 +1,6 @@
 #include "stm32l476xx.h"
 #include "stm32l4xx_hal.h"
+#include <string.h>
 
 void SystemClockConfig(void);
 void UART2_Init(void);
@@ -15,7 +16,9 @@ int main(void) {
 
 	UART2_Init();
 
-	HAL_UART_Transmit(&huart2, &user_data, length(), Timeout);
+	HAL_UART_Transmit(&huart2, (uint8_t*) &user_data, strlen(user_data), HAL_MAX_DELAY);
+
+	while (1);
 
 	return 0;
 }
@@ -32,6 +35,7 @@ void UART2_Init(void) {
 	huart2.Init.Parity = UART_PARITY_NONE;
 	huart2.Init.Mode = UART_MODE_TX_RX;
 	huart2.Init.HwFlowCtl = UART_HWCONTROL_NONE;
+	huart2.Init.OverSampling = UART_OVERSAMPLING_16;
 
 	if (HAL_UART_Init(&huart2) != HAL_OK) {
 		Error_Handler();

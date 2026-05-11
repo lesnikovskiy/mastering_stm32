@@ -1,8 +1,6 @@
-/*
- * it.c
- *
- *  Created on: May 6, 2026
- *      Author: ruslan
- */
+#include "stm32l4xx_hal.h"
 
-
+void SysTick_Handler(void) {
+	HAL_IncTick();
+	HAL_SYSTICK_IRQHandler();
+}
