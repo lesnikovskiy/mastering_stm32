@@ -16,7 +16,7 @@ int main(void) {
 
 	UART2_Init();
 
-	HAL_UART_Transmit(&huart2, (uint8_t*) &user_data, strlen(user_data), HAL_MAX_DELAY);
+	HAL_UART_Transmit(&huart2, (uint8_t*) user_data, strlen(user_data), HAL_MAX_DELAY);
 
 	while (1);
 
