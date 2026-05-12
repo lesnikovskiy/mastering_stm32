@@ -5,6 +5,7 @@
 void SystemClockConfig(void);
 void UART2_Init(void);
 void Error_Handler(void);
+void convert_to_capical(uint8_t *data);
 
 UART_HandleTypeDef huart2;
 
@@ -28,8 +29,11 @@ int main(void) {
 			break;
 		}
 
+		convert_to_capical(&rcvd_data);
 		data_buffer[count++] = rcvd_data;
 	}
+
+	data_buffer[count++] = '\r';
 
 	HAL_UART_Transmit(&huart2, data_buffer, count, HAL_MAX_DELAY);
 
@@ -59,4 +63,13 @@ void UART2_Init(void) {
 
 void Error_Handler(void) {
 	// blink red LED
+}
+
+void convert_to_capical(uint8_t *data) {
+	if (data == NULL)
+		return;
+
+	if (*data >= 'a' && *data <= 'z') {
+		*data = *data - ('a' - 'A');
+	}
 }
