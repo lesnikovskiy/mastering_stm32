@@ -18,6 +18,21 @@ int main(void) {
 
 	HAL_UART_Transmit(&huart2, (uint8_t*) user_data, strlen(user_data), HAL_MAX_DELAY);
 
+	uint8_t rcvd_data = { 0 };
+	uint8_t data_buffer[100];
+	uint32_t count = 0;
+
+	while (1) {
+		HAL_UART_Receive(&huart2, &rcvd_data, 1, HAL_MAX_DELAY);
+		if (rcvd_data == '\r') {
+			break;
+		}
+
+		data_buffer[count++] = rcvd_data;
+	}
+
+	HAL_UART_Transmit(&huart2, data_buffer, count, HAL_MAX_DELAY);
+
 	while (1);
 
 	return 0;
