@@ -2,10 +2,12 @@
 #include "stm32l4xx_hal.h"
 #include <string.h>
 
+#define MAX_BUFFER_SIZE (100UL)
+
 void SystemClockConfig(void);
 void UART2_Init(void);
 void Error_Handler(void);
-void convert_to_capical(uint8_t *data);
+void convert_buffer_to_capital(uint8_t *pData, uint32_t size);
 
 UART_HandleTypeDef huart2;
 
@@ -20,20 +22,22 @@ int main(void) {
 	HAL_UART_Transmit(&huart2, (uint8_t*) user_data, strlen(user_data), HAL_MAX_DELAY);
 
 	uint8_t rcvd_data = { 0 };
-	uint8_t data_buffer[100];
+	uint8_t data_buffer[MAX_BUFFER_SIZE] = { 0 };
 	uint32_t count = 0;
 
 	while (1) {
 		HAL_UART_Receive(&huart2, &rcvd_data, 1, HAL_MAX_DELAY);
-		if (rcvd_data == '\r') {
+		if (rcvd_data == '\r' || count >= (MAX_BUFFER_SIZE - 1)) {
 			break;
 		}
 
-		convert_to_capical(&rcvd_data);
 		data_buffer[count++] = rcvd_data;
 	}
 
 	data_buffer[count++] = '\r';
+	data_buffer[count++] = '\n';
+
+	convert_buffer_to_capital(data_buffer, count);
 
 	HAL_UART_Transmit(&huart2, data_buffer, count, HAL_MAX_DELAY);
 
@@ -65,11 +69,13 @@ void Error_Handler(void) {
 	// blink red LED
 }
 
-void convert_to_capical(uint8_t *data) {
-	if (data == NULL)
+void convert_buffer_to_capital(uint8_t *pData, uint32_t size) {
+	if (pData == NULL)
 		return;
 
-	if (*data >= 'a' && *data <= 'z') {
-		*data = *data - ('a' - 'A');
+	for (uint32_t i = 0; i < size; i++) {
+		if (pData[i] >= 'a' && pData[i] <= 'z') {
+			pData[i] -= ('a' - 'A');
+		}
 	}
 }
