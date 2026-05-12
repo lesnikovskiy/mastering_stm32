@@ -1,8 +1,10 @@
-#include "stm32l476xx.h"
-#include "stm32l4xx_hal.h"
 #include <string.h>
+#include "stm32l476xx.h"
+#include "main.h"
 
 #define MAX_BUFFER_SIZE (100UL)
+#define TRUE 			(1U)
+#define FALSE 			(0)
 
 void SystemClockConfig(void);
 void UART2_Init(void);
@@ -13,6 +15,11 @@ UART_HandleTypeDef huart2;
 
 char *user_data = "The application is running\r\n";
 
+uint8_t received_data;
+uint8_t data_buffer[MAX_BUFFER_SIZE] = { 0 };
+uint32_t count = 0;
+uint8_t reception_complete = FALSE;
+
 int main(void) {
 	HAL_Init();
 	SystemClockConfig();
@@ -20,6 +27,10 @@ int main(void) {
 	UART2_Init();
 
 	HAL_UART_Transmit(&huart2, (uint8_t*) user_data, strlen(user_data), HAL_MAX_DELAY);
+
+	while (reception_complete != TRUE) {
+		HAL_UART_Receive_IT(&huart2, &received_data, 1);
+	}
 
 	while (1);
 
@@ -43,6 +54,17 @@ void UART2_Init(void) {
 	if (HAL_UART_Init(&huart2) != HAL_OK) {
 		Error_Handler();
 	}
+}
+
+void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
+	if (received_data == '\r' || count >= MAX_BUFFER_SIZE) {
+		reception_complete = TRUE;
+
+		convert_buffer_to_capital(data_buffer, count);
+		HAL_UART_Transmit(&huart2, (uint8_t*) data_buffer, count, HAL_MAX_DELAY);
+	}
+
+	data_buffer[count++] = received_data;
 }
 
 void Error_Handler(void) {
