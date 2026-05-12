@@ -58,6 +58,8 @@ void UART2_Init(void) {
 
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
 	if (received_data == '\r' || count >= MAX_BUFFER_SIZE) {
+		data_buffer[count++] = '\n';
+
 		reception_complete = TRUE;
 
 		convert_buffer_to_capital(data_buffer, count);
