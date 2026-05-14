@@ -1116,3 +1116,12 @@ java.lang.ClassNotFoundException: org.eclipse.e4.ui.workbench.renderers.swt.coco
 
 !ENTRY com.st.stm32cube.ide.mcu.debug.launch 2 0 2026-05-12 16:50:31.446
 !MESSAGE Won't launch debug session since we failed to locate the binary.
+
+!ENTRY org.eclipse.cdt.core 1 0 2026-05-14 22:58:14.987
+!MESSAGE Indexed '003UARTITExcercise' (23 sources, 121 headers) in 2.67 sec: 11,791 declarations; 51,548 references; 3 unresolved inclusions; 46 syntax errors; 171 unresolved names (0.27%)
+
+!ENTRY org.eclipse.cdt.core 1 0 2026-05-14 23:13:22.409
+!MESSAGE Indexed '004HSE_SYSCLK_8MHz' (23 sources, 121 headers) in 2.03 sec: 11,791 declarations; 51,548 references; 3 unresolved inclusions; 46 syntax errors; 171 unresolved names (0.27%)
+
+!ENTRY com.st.stm32cube.ide.mcu.debug.launch 2 0 2026-05-14 23:17:26.293
+!MESSAGE Won't launch debug session since we failed to locate the binary.
